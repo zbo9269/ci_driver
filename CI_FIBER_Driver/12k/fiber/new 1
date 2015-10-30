@@ -1,0 +1,9 @@
+4*3   resert
+
+
+fiber_send_allocated_size  = 4
+fiber_a_recv_allocated_size = 4 ;
+fiber_b_recv_allocated_size = 4 ;
+total_size = 12K;
+
+12k - 4 - sizeof(int32) - size - sizeof(int32) - size 
