@@ -1,9 +1,12 @@
 #!  /usr/bin/python3
 
+import sys
+
 import struct
 from xxd import xxd_bin
 from random import randint
 from fcntl import ioctl
+
 
 def reset_memory(file_name):
     """
@@ -52,6 +55,35 @@ def send_data(file_name,size):
     finally:
         fiber_fp.close()
     return
+	
+def send_all(size):
+    send_data("/dev/fibera1",size)
+    send_data("/dev/fibera2",size)
+    send_data("/dev/fibera3",size)
+    send_data("/dev/fibera4",size)
+    send_data("/dev/fibera5",size)
+    return
+	
+def alloc_all(size):
+    reset_memory("/dev/fibera1")
+
+    alloc_memory("/dev/fibera1",size)
+    alloc_memory("/dev/fibera2",size)
+    alloc_memory("/dev/fibera3",size)
+    alloc_memory("/dev/fibera4",size)
+    alloc_memory("/dev/fibera5",size)
+
+    alloc_memory("/dev/fiberb1",size)
+    alloc_memory("/dev/fiberb2",size)
+    alloc_memory("/dev/fiberb3",size)
+    alloc_memory("/dev/fiberb4",size)
+    alloc_memory("/dev/fiberb5",size)
+    return
+	
+def usge_err():
+    print ("usge err! \n if you want alloc memory please run me with ****\"./send_test.py alloc\"*** and \
+	if you want send data please run me with ****\"./send_test.py \"*** \
+    all other is err!")
 
 if __name__ == "__main__":
     a1_size = 0xfa0 
@@ -59,34 +91,17 @@ if __name__ == "__main__":
     a3_size = 0xfa0 
     a4_size = 0xfa0 
     a5_size = 0xfa0 
+	
+    if len(sys.argv) == 2 :
+        if sys.argv[1] == "alloc":
+            alloc_all(a1_size)
+            print ("alloc")
+        else :
+            usge_err();
+    elif len(sys.argv) == 1:
+        send_all(a1_size)
+        print ("send")
+    else:
+	    usge_err()
 
-"""
-    reset_memory("/dev/fibera1")
 
-    alloc_memory("/dev/fibera1",a1_size)
-    alloc_memory("/dev/fibera2",a2_size)
-    alloc_memory("/dev/fibera3",a3_size)
-    alloc_memory("/dev/fibera4",a4_size)
-    alloc_memory("/dev/fibera5",a5_size)
-
-    alloc_memory("/dev/fiberb1",a1_size)
-    alloc_memory("/dev/fiberb2",a2_size)
-    alloc_memory("/dev/fiberb3",a3_size)
-    alloc_memory("/dev/fiberb4",a4_size)
-    alloc_memory("/dev/fiberb5",a5_size)
-"""
-
-send_data("/dev/fibera1",a1_size)
-send_data("/dev/fibera2",a2_size)
-send_data("/dev/fibera3",a3_size)
-send_data("/dev/fibera4",a4_size)
-send_data("/dev/fibera5",a5_size)
-
-"""
-send_data("/dev/fiberb1",a1_size)
-send_data("/dev/fiberb2",a2_size) 
-send_data("/dev/fiberb3",a3_size)
-send_data("/dev/fiberb4",a4_size)
-send_data("/dev/fiberb5",a5_size)
-  
-"""
