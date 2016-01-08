@@ -450,6 +450,7 @@ static ssize_t net_write(struct file *filp, const char __user *buf,size_t size, 
     }
 
     outb(NET_IO_SELECT_VALUE,NET_IO_PORT);
+	outb(0x01,NET_RESET_PORT);
 
     do
     {
@@ -611,6 +612,7 @@ static int net_ioctl(struct inode *inodep, struct file *filp, unsigned int cmd, 
         break;
     case NET_IOC_RESET:
         outb(0x01, NET_RESET_PORT);
+		outb(0x01, NET_RESET_PORT_RECIVE);
         break;
     default:
         ret = -EFAULT;

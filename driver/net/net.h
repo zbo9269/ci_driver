@@ -25,6 +25,7 @@
 #define NET_IO_WRITE_DATA_LEN_LOW_PORT  0x23D   /*写入数据的长度的地位的端口*/
 
 #define NET_RESET_PORT                  0x232   /*复位网络通信板*/
+#define NET_RESET_PORT_RECIVE                  0x231   /*复位网络通信板FPGA收数状态机*/
 
 #define NET_SEND_START_ADDR             0xD1000
 #define NET_SEND_END_ADDR               0xD17FF
